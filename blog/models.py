@@ -64,7 +64,7 @@ class Recipe(models.Model):
     name = models.CharField(max_length=100, unique=True)
     serves = models.CharField(max_length=50)
     prep_time = models.PositiveIntegerField(default=0)
-    coot_time = models.PositiveIntegerField(default=0)
+    cook_time = models.PositiveIntegerField(default=0)
     ingredients = models.TextField()
     directions = models.TextField()
     post = models.ForeignKey(
