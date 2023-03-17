@@ -3,11 +3,15 @@ from mptt.admin import MPTTModelAdmin
 
 from . import models
 
+class RecipeInline(admin.StackedInline):
+    model = models.Recipe
+    extra = 1
 
 @admin.register(models.Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'auther', 'create_at', 'id')
     ordering = ('-id',)
+    inlines = (RecipeInline,)
 
 
 @admin.register(models.Recipe)
