@@ -4,7 +4,6 @@ venv
 
 */migrations/*
 
-media/
 
 __pycache__/
 */__pycache__/
