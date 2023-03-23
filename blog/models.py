@@ -1,5 +1,7 @@
+from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 
 
@@ -24,6 +26,12 @@ class Category(MPTTModel):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('category-posts', kwargs={'slug': self.slug})
+
+    def get_posts(self):
+        return self.post_set.all()
+
 
 class Tag(models.Model):
     name = models.CharField('Тег', max_length=100, unique=True)
@@ -38,6 +46,7 @@ class Tag(models.Model):
 
 
 class Post(models.Model):
+    slug = models.SlugField(max_length=250, unique=True)
     title = models.CharField('Заголовок', max_length=200)
     image = models.ImageField('Фото', upload_to='images/%Y/%m/%d/')
     text = models.TextField('Описание')
@@ -46,7 +55,6 @@ class Post(models.Model):
     auther = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE, verbose_name='Автор')
     category = models.ForeignKey(
         Category,
-        related_name='post',
         on_delete=models.SET_NULL,
         null=True,
         verbose_name='Категория'
@@ -59,14 +67,17 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse("post", kwargs={"slug": self.slug})
+
 
 class Recipe(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100)
     serves = models.CharField(max_length=50)
     prep_time = models.PositiveIntegerField(default=0)
     cook_time = models.PositiveIntegerField(default=0)
-    ingredients = models.TextField()
-    directions = models.TextField()
+    ingredients = RichTextField()
+    directions = RichTextField()
     post = models.ForeignKey(
         Post,
         related_name='recipe',
@@ -86,9 +97,9 @@ class Recipe(models.Model):
 class Comment(models.Model):
     name = models.CharField('Имя', max_length=60)
     email = models.CharField(max_length=120)
-    website = models.CharField(max_length=170)
     message = models.TextField(max_length=500)
-    post = models.ForeignKey(Post, related_name='comment', on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
+    create_at = models.DateTimeField('Обуликовано', auto_now_add=True, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Коммент'

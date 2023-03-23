@@ -12,6 +12,8 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'auther', 'create_at', 'id')
     ordering = ('-id',)
     inlines = (RecipeInline,)
+    save_as = True
+    save_on_top = True
 
 
 @admin.register(models.Recipe)
