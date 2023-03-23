@@ -1,0 +1,76 @@
+{% load static %}
+{% load blog_tags about_tags %}
+<header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-md-1 col-6 order-md-1 order-1">
+                    <div class="header__humberger">
+                        <i class="fa fa-bars humberger__open"></i>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-10 order-md-2 order-3">
+                    <nav class="header__menu">
+                        <ul>
+                            <li class="active"><a href="{% url 'home' %}">Home</a></li>
+                            <li class="dropdown"><a href="">CATEGORY</a>
+                                <ul class="dropdown__menu">
+                                    {% get_categories_menu as categories %}
+                                    {% for category in categories %}
+                                    <li class="dropdown"><a href="{{ category.get_absolute_url }}">{{ category }}</a>
+                                        {% if category.children.all %}
+                                        <ul class="dropdown__menu">
+                                            {% for children in category.children.all %}
+                                            <li><a href="{{ children.get_absolute_url }}">{{ children }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                        {% endif %}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                            <li><a href="{% url 'about' %}">About</a></li>
+                            <li><a href="{% url 'contact' %}">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-2 col-md-1 col-6 order-md-3 order-2">
+                    <div class="header__search">
+                        <i class="fa fa-search search-switch"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <div class="header__btn">
+                    <a href="./signin.html" class="primary-btn">Subscribe</a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="header__logo">
+                    <a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="header__social">
+                    {% get_about_urls as about %}
+                    {% if about.facebook %}
+                    <a href="{{ about.facebook }}"><i class="fa fa-facebook"></i></a>
+                    {% endif %}
+                    {% if about.twitter %}
+                    <a href="{{ about.twitter }}"><i class="fa fa-twitter"></i></a>
+                    {% endif %}
+                    {% if about.youtube %}
+                    <a href="{{ about.youtube }}"><i class="fa fa-youtube-play"></i></a>
+                    {% endif %}
+                    {% if about.instagram %}
+                    <a href="{{ about.instagram }}"><i class="fa fa-instagram"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,53 @@
+{% load static %}
+{% load blog_tags about_tags contact_tags %}
+
+<div class="col-lg-4 col-md-4">
+    <div class="sidebar__item">
+        <div class="sidebar__about__item">
+            <div class="sidebar__item__title">
+                <h6>About me</h6>
+                {% get_about_urls as about %}
+            </div>
+            <img src="{{ about.main_image.url }}" alt="">
+            <h6>{{ about.title }}</h6>
+            <p>{{ about.mini_content|safe|truncatewords:'20' }}</p>
+            <a href="{% url 'about' %}" class="primary-btn">Read more</a>
+        </div>
+        <div class="sidebar__follow__item">
+            <div class="sidebar__item__title">
+                <h6>Follow me</h6>
+            </div>
+            <div class="sidebar__item__follow__links">
+                {% if about.facebook %}
+                <a href="{{ about.facebook }}"><i class="fa fa-facebook"></i></a>
+                {% endif %}
+                {% if about.twitter %}
+                <a href="{{ about.twitter }}"><i class="fa fa-twitter"></i></a>
+                {% endif %}
+                {% if about.youtube %}
+                <a href="{{ about.youtube }}"><i class="fa fa-youtube-play"></i></a>
+                {% endif %}
+                {% if about.instagram %}
+                <a href="{{ about.instagram }}"><i class="fa fa-instagram"></i></a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="sidebar__item__banner">
+            <img src="{% static 'img/sidebar/banner.jpg' %}" alt="">
+        </div>
+        {% get_categories %}
+        <div class="sidebar__subscribe__item">
+            <div class="sidebar__item__title">
+                <h6>Subscribe</h6>
+            </div>
+            <p>Subscribe to our newsletter and get our newest updates right on your inbox.</p>
+            <form action="{% url 'subscribe-email' %}" method="post">
+                {% csrf_token %}
+                {% get_form_subscribe as subcriber_email_form %}
+                {{ subcriber_email_form }}
+                <button type="submit" class="site-btn">Subscribe</button>
+            </form>
+
+        </div>
+    </div>
+</div>

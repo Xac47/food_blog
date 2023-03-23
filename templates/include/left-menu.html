@@ -1,0 +1,68 @@
+{% load static contact_tags about_tags blog_tags %}
+
+
+<div class="humberger__menu__overlay"></div>
+<div class="humberger__menu__wrapper">
+    <div class="humberger__menu__logo">
+        <a href="{% url 'home' %}"><img src="{% static 'img/humberger/humberger-logo.png' %}" alt=""></a>
+    </div>
+    <nav class="humberger__menu__nav mobile-menu">
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li class="dropdown"><a href="">CATEGORY</a>
+                <ul class="dropdown__menu">
+                    {% get_categories_menu as categories %}
+                    {% for category in categories %}
+                    <li class="dropdown"><a href="{{ category.get_absolute_url }}">{{ category }}</a>
+                        {% if category.children.all %}
+                        <ul class="dropdown__menu">
+                            {% for children in category.children.all %}
+                            <li><a href="{{ children.get_absolute_url }}">{{ children }}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+    </nav>
+    <div id="mobile-menu-wrap"></div>
+    <div class="humberger__menu__about">
+        <div class="humberger__menu__title sidebar__item__title">
+            <h6>About me</h6>
+        </div>
+        {% get_about_urls as about %}
+        <img src="{% static 'img/humberger/humberger-about.jpg' %}" alt="">
+        <h6>{{ about.title|truncatewords:'6' }}</h6>
+        <p>{{ about.mini_content|safe|truncatewords:'14' }}</p>
+        <div class="humberger__menu__about__social sidebar__item__follow__links">
+            {% if about.facebook %}
+            <a href="{{ about.facebook }}"><i class="fa fa-facebook"></i></a>
+            {% endif %}
+            {% if about.twitter %}
+            <a href="{{ about.twitter }}"><i class="fa fa-twitter"></i></a>
+            {% endif %}
+            {% if about.youtube %}
+            <a href="{{ about.youtube }}"><i class="fa fa-youtube-play"></i></a>
+            {% endif %}
+            {% if about.instagram %}
+            <a href="{{ about.instagram }}"><i class="fa fa-instagram"></i></a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="humberger__menu__subscribe">
+        <div class="humberger__menu__title sidebar__item__title">
+            <h6>Subscribe</h6>
+        </div>
+        <p>Subscribe to our newsletter and get our newest updates right on your inbox.</p>
+        <form action="{% url 'subscribe-email' %}" method="post">
+            {% csrf_token %}
+            {% get_form_subscribe as subcriber_email_form %}
+            {{ subcriber_email_form }}
+            <button type="submit" class="site-btn">Subscribe</button>
+        </form>
+    </div>
+</div>

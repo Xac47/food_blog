@@ -1,0 +1,14 @@
+<div class="sidebar__item__categories">
+    <div class="sidebar__item__title">
+        <h6>Categories</h6>
+    </div>
+    <ul>
+        {% for category in categories %}
+        <li><a href="{{ category.get_absolute_url }}">{{ category }} <span>{{ category.post_set.count }}</span></a></li>
+        {% for children in category.children.all %}
+        <li class="p-left"><a href="{{ children.get_absolute_url }}">{{ children }}
+            <span>{{ children.post_set.count }}</span></a></li>
+        {% endfor %}
+        {% endfor %}
+    </ul>
+</div>
