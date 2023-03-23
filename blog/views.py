@@ -14,10 +14,12 @@ class IndexView(ListView):
 
 
 class SearchView(ListView):
+    model = Post
     template_name = 'blog/index.html'
+    paginate_by = 9
 
     def get_queryset(self):
-        Post.objects.filter(
+        return Post.objects.filter(
             title__icontains=self.request.GET.get('q')
         )
 class CategoryListView(ListView):
