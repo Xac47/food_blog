@@ -1,6 +1,5 @@
 {% load static contact_tags about_tags blog_tags %}
 
-
 <div class="humberger__menu__overlay"></div>
 <div class="humberger__menu__wrapper">
     <div class="humberger__menu__logo">
@@ -14,11 +13,13 @@
                     {% get_categories_menu as categories %}
                     {% for category in categories %}
                     <li class="dropdown"><a href="{{ category.get_absolute_url }}">{{ category }}</a>
-                        {% for children in category.children.all %}
+                        {% if category.children.all %}
                         <ul class="dropdown__menu">
+                        {% for children in category.children.all %}
                             <li><a href="{{ children.get_absolute_url }}">{{ children }}</a></li>
-                        </ul>
                         {% endfor %}
+                        </ul>
+                        {% endif %}
                     </li>
                     {% endfor %}
                 </ul>
