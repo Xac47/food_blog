@@ -55,6 +55,11 @@
                                 <p>My experience with Realy is absolutely positive. The themes are beautifully designed
                                     and well documented. Realy theme provides quick support.</p>
                             </div>
+                            {% if form.errors %}
+                                {% for error in form.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            {% endif %}
                             <form action="{% url 'contact' %}" method="post">
                                 {% csrf_token %}
                                 {{ form }}
