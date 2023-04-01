@@ -19,7 +19,7 @@
 
     venv\Scripts\activate.bat - Windows
 
-    venv/bin/activate - Linux
+    venv/bin/activate - Linux or Mac
 
 ##### 4) Устанавливить зависимости:
 
