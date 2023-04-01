@@ -1,36 +1,38 @@
-Cook food blog
+<h2 alingn='center'>Cook food blog</h2>
 
-Описание проекта:
+### Описание проекта:
+    Блог повара
 
-Блог повара
-Разработка
+## Разработка
 
-1) Клонировать репозиторий
 
-git clone ссылка_сгенерированная_в_вашем_репозитории
 
-2) Создать виртуальное окружение
+##### 1) Клонировать репозиторий
 
-python -m venv venv
+    git clone ссылка_сгенерированная_в_вашем_репозитории
 
-3) Активировать виртуальное окружение
+##### 2) Создать виртуальное окружение
 
-venv\Scripts\activate.bat - Windows
+    python -m venv venv
+    
+##### 3) Активировать виртуальное окружение
 
-venv/bin/activate - Linux
+    venv\Scripts\activate.bat - Windows
 
-4) Устанавливить зависимости:
+    venv/bin/activate - Linux
 
-pip install -r req.txt
+##### 4) Устанавливить зависимости:
 
-5) Выполнить команду для выполнения миграций
+    pip install -r req.txt
 
-python manage.py migrate
+##### 5) Выполнить команду для выполнения миграций
 
-6) Создать суперпользователя
+    python manage.py migrate
+    
+##### 6) Создать суперпользователя
 
-python manage.py createsuperuser
+    python manage.py createsuperuser
+    
+##### 7) Запустить сервер
 
-7) Запустить сервер
-
-python manage.py runserver
+    python manage.py runserver
