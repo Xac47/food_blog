@@ -1,4 +1,4 @@
-<h2 alingn='center'>Cook food blog</h2>
+<h2 alingn='center'>Food blog</h2>
 
 ### Описание проекта:
     Блог повара
